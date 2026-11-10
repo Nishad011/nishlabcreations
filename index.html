@@ -1120,7 +1120,7 @@ onScroll();drawPath();
     } else if(href==='#demo'){
       send('demo_cta_click',{section:sec,link_text:text});
     } else if(a.tagName==='BUTTON'&&a.classList.contains('node')){
-      send('course_view',{course:text.replace(/^[A-Z0-9]+/,'').replace(/₹.*/,'').trim()});
+      var cs=a.querySelector('span');send('course_view',{course:cs?cs.textContent.trim():text});
     } else if(/google\.com\/maps/i.test(href)){
       send('reviews_click',{section:sec});
     }
