@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"EducationalOrganization","name":"NISHLAB CREATIONS","url":"https://nishlabcreations.online/","email":"nishad@nishlabcreations.com","telephone":"+918424099617","description":"Online CAD and CAE training institute in Mumbai.","address":{"@type":"PostalAddress","streetAddress":"C.G.S. Colony, Sector 7, Antop Hill","addressLocality":"Mumbai","addressRegion":"Maharashtra","postalCode":"400037","addressCountry":"IN"}}
+{"@context":"https://schema.org","@type":"EducationalOrganization","name":"NISHLAB CREATIONS","url":"https://nishlabcreations.online/","email":"nishad@nishlabcreations.com","telephone":"+918424099617","description":"Online CAD and CAE training institute in Mumbai.","address":{"@type":"PostalAddress","streetAddress":"C.G.S. Colony, Sector 7, Antop Hill","addressLocality":"Mumbai","addressRegion":"Maharashtra","postalCode":"400037","addressCountry":"IN"},"areaServed":[{"@type":"City","name":"Mumbai"},{"@type":"Country","name":"India"}]}
 </script>
 <style>
 /* Layout idea: the page is a CAD workspace. Hero = live 3D viewport, courses = feature tree + properties panel, process = a toolpath drawn by scroll. Graphite ground, one molten-orange accent. */
@@ -693,7 +693,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <div><span class="mono">Email</span><a href="mailto:nishad@nishlabcreations.com">nishad@nishlabcreations.com</a></div>
     <div><span class="mono">Portals</span><a href="https://lms.nishlabcreations.online">Student login</a><br><a href="https://certificate.nishlabcreations.online">Verify certificate</a></div>
   </div>
-  <div class="copy"><span>© 2026 NISHLAB CREATIONS · ISO 9001:2015 certified (Cert No. QMS/230620/8945)</span><span class="mono">Sheet 1 of 1 · Rev 03</span></div>
+  <div class="copy"><span>© 2026 NISHLAB CREATIONS · ISO 9001:2015 certified</span><span class="mono">Sheet 1 of 1 · Rev 03</span></div>
 </div>
 </footer>
 
@@ -1096,6 +1096,35 @@ function onScroll(){
 window.addEventListener("scroll",onScroll,{passive:true});
 window.addEventListener("resize",onScroll);
 onScroll();drawPath();
+})();
+</script>
+<script>
+/* NISHLAB lead tracking -> GA4 */
+(function(){
+  function send(name,p){try{window.gtag&&gtag('event',name,p);}catch(e){}}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a,button'); if(!a) return;
+    var href=a.getAttribute('href')||'', text=(a.textContent||'').trim().slice(0,60);
+    var sec=(a.closest('section[id]')||{}).id||'other';
+    if(/wa\.me|whatsapp/i.test(href)){
+      var type=a.id==='wa'?'demo_request':/reserve/i.test(text)?'reserve_seat':/workshop/i.test(text)?'college_workshop':'whatsapp_contact';
+      var course='';
+      if(a.id==='wa'){var fc=document.getElementById('fc');course=fc?(fc.value||''):'';}
+      else{var mm=decodeURIComponent(href).match(/in the (.+?) batch/i);course=mm?mm[1]:'';}
+      send('whatsapp_click',{lead_type:type,course:course,section:sec,link_text:text});
+      send('generate_lead',{lead_type:type,course:course,section:sec,method:'whatsapp'});
+    } else if(/^mailto:/i.test(href)){
+      send('email_click',{section:sec}); send('generate_lead',{lead_type:'email',section:sec,method:'email'});
+    } else if(/^tel:/i.test(href)){
+      send('phone_click',{section:sec}); send('generate_lead',{lead_type:'call',section:sec,method:'phone'});
+    } else if(href==='#demo'){
+      send('demo_cta_click',{section:sec,link_text:text});
+    } else if(a.tagName==='BUTTON'&&a.classList.contains('node')){
+      send('course_view',{course:text.replace(/^[A-Z0-9]+/,'').replace(/₹.*/,'').trim()});
+    } else if(/google\.com\/maps/i.test(href)){
+      send('reviews_click',{section:sec});
+    }
+  },true);
 })();
 </script>
 </body>
