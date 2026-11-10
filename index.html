@@ -348,6 +348,21 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
 @media (max-width:820px){.tb{grid-template-columns:1fr 1fr}.tb>div:nth-child(2){border-right:0}.tb>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 @media (max-width:460px){.tb{grid-template-columns:1fr}.tb>div{border-right:0;border-bottom:1px solid var(--line)}}
 .copy{margin-top:16px;font-size:.84rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* upcoming batches */
+.batches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.batch{border:1px solid var(--line);border-radius:14px;padding:22px 20px;background:var(--panel);display:flex;flex-direction:column}
+.batch .mono{color:var(--hot);margin:0 0 8px}
+.batch h3{margin-bottom:14px}
+.batch dl{margin:0;display:grid;gap:8px}
+.batch dl div{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:8px}
+.batch dt{color:var(--muted);font-size:.9rem}
+.batch dd{margin:0;font-weight:600;font-size:.95rem;text-align:right}
+.batch .seats{display:inline-block;align-self:flex-start;margin-top:14px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--hot);border:1px solid var(--hot);border-radius:999px;padding:3px 10px}
+.batch .btn{margin-top:auto;width:100%;justify-content:center}
+.batch .seats + .btn{margin-top:16px}
+@media (max-width:1000px){.batches{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.batches{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -360,6 +375,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span></button>
     <nav aria-label="Main" id="mainNav">
       <a href="#courses">Courses</a>
+      <a href="#batches">Batches</a>
       <a href="#process">Process</a>
       <a href="#lab">Lab</a>
       <a href="#colleges">Colleges</a>
@@ -433,6 +449,68 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <div class="props" id="props" aria-live="polite"></div>
   </div>
   <p class="aside-note">Every course ends with an industry capstone. The Career track (Interview, Resume &amp; Portfolio Preparation) can be added to any course.</p>
+</div>
+</section>
+
+<section id="batches">
+<div class="wrap">
+  <div class="head">
+    <div>
+      <p class="mono">Upcoming batches · November 2026</p>
+      <h2>New batches <span class="hot">starting soon.</span></h2>
+      <p>SolidWorks and ANSYS batches start on 12 and 18 November. Small groups, live with your mentor. Pick a start date and reserve your seat on WhatsApp.</p>
+    </div>
+  </div>
+  <div class="batches">
+    <article class="batch">
+      <p class="mono">SW · Batch</p>
+      <h3>SolidWorks Professional</h3>
+      <dl>
+        <div><dt>Starts</dt><dd>Thu 12 Nov 2026</dd></div>
+        <div><dt>Days</dt><dd>Mon · Wed · Fri</dd></div>
+        <div><dt>Time</dt><dd>9:00–11:00 PM IST</dd></div>
+        <div><dt>Format</dt><dd>Live online</dd></div>
+      </dl>
+      <span class="seats">Limited seats</span>
+      <a class="btn" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20reserve%20a%20seat%20in%20the%20SolidWorks%20Professional%20batch%20starting%2012%20Nov%202026%20%28Mon/Wed/Fri%2C%209%E2%80%9311%20PM%20IST%29." target="_blank" rel="noopener">Reserve a seat →</a>
+    </article>
+    <article class="batch">
+      <p class="mono">ANSYS · Batch</p>
+      <h3>ANSYS Workbench Professional</h3>
+      <dl>
+        <div><dt>Starts</dt><dd>Thu 12 Nov 2026</dd></div>
+        <div><dt>Days</dt><dd>Mon · Wed · Fri</dd></div>
+        <div><dt>Time</dt><dd>9:00–11:00 PM IST</dd></div>
+        <div><dt>Format</dt><dd>Live online</dd></div>
+      </dl>
+      <span class="seats">Limited seats</span>
+      <a class="btn" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20reserve%20a%20seat%20in%20the%20ANSYS%20Workbench%20Professional%20batch%20starting%2012%20Nov%202026%20%28Mon/Wed/Fri%2C%209%E2%80%9311%20PM%20IST%29." target="_blank" rel="noopener">Reserve a seat →</a>
+    </article>
+    <article class="batch">
+      <p class="mono">SW · Batch</p>
+      <h3>SolidWorks Professional</h3>
+      <dl>
+        <div><dt>Starts</dt><dd>Wed 18 Nov 2026</dd></div>
+        <div><dt>Days</dt><dd>Mon · Wed · Fri</dd></div>
+        <div><dt>Time</dt><dd>9:00–11:00 PM IST</dd></div>
+        <div><dt>Format</dt><dd>Live online</dd></div>
+      </dl>
+      <span class="seats">Limited seats</span>
+      <a class="btn" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20reserve%20a%20seat%20in%20the%20SolidWorks%20Professional%20batch%20starting%2018%20Nov%202026%20%28Mon/Wed/Fri%2C%209%E2%80%9311%20PM%20IST%29." target="_blank" rel="noopener">Reserve a seat →</a>
+    </article>
+    <article class="batch">
+      <p class="mono">ANSYS · Batch</p>
+      <h3>ANSYS Workbench Professional</h3>
+      <dl>
+        <div><dt>Starts</dt><dd>Wed 18 Nov 2026</dd></div>
+        <div><dt>Days</dt><dd>Mon · Wed · Fri</dd></div>
+        <div><dt>Time</dt><dd>9:00–11:00 PM IST</dd></div>
+        <div><dt>Format</dt><dd>Live online</dd></div>
+      </dl>
+      <span class="seats">Limited seats</span>
+      <a class="btn" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20reserve%20a%20seat%20in%20the%20ANSYS%20Workbench%20Professional%20batch%20starting%2018%20Nov%202026%20%28Mon/Wed/Fri%2C%209%E2%80%9311%20PM%20IST%29." target="_blank" rel="noopener">Reserve a seat →</a>
+    </article>
+  </div>
 </div>
 </section>
 
@@ -571,7 +649,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
 <div class="wrap">
   <div class="head"><div><p class="mono">06 · FAQ</p><h2>Before you join.</h2></div></div>
   <div class="faq">
-    <details open><summary>When does the next batch start?</summary><p>A new batch starts every month. Message us on WhatsApp for the exact date and open seats.</p></details>
+    <details open><summary>When does the next batch start?</summary><p>New SolidWorks and ANSYS batches start on 12 and 18 November 2026 (Mon/Wed/Fri, 9–11 PM IST). <a href="#batches">See upcoming batches</a>. After that, a new batch starts every month.</p></details>
     <details><summary>What time are the classes?</summary><p>Each class is two hours, live, in Indian Standard Time. We fix a slot that suits you at the free demo.</p></details>
     <details><summary>How do I pay?</summary><p>By UPI. We share the details after the demo call.</p></details>
     <details><summary>Do I get a certificate?</summary><p>Yes. Each certificate carries an ID and a QR code so employers can verify it online.</p></details>
