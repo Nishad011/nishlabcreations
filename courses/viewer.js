@@ -36,9 +36,23 @@ var PAL=[0x7f93a8,0xff6a1a,0xd9dee4,0x3b4550,0x5d7a96,0xb8c4d0,0x2b3540];
 function mount(box,model){
   var wrap=box.querySelector(".pv-stage"),btn=box.querySelector(".pv-load"),msg=box.querySelector(".pv-msg");
   btn.addEventListener("click",function(){btn.disabled=true;start()});
+  if(/\.mesh(\?|$)/i.test(model)){var pst=model.replace(/\.mesh(\?.*)?$/i,".jpg");wrap.style.background="linear-gradient(rgba(10,16,24,.35),rgba(10,16,24,.55)),url("+pst+") center/cover no-repeat"}
   function say(t){msg.textContent=t}
+  function parseMesh(buf){
+    var dv=new DataView(buf);
+    if(buf.byteLength<12||dv.getUint32(0,true)!==0x314d4c4e)throw new Error("Could not read this model file");
+    var nv=dv.getUint32(4,true),nf=dv.getUint32(8,true);
+    return {success:true,meshes:[{attributes:{position:{array:new Float32Array(buf,12,nv*3)}},index:{array:new Uint32Array(buf,12+nv*12,nf*3)}}]};
+  }
   function start(){
     say("Downloading model…");
+    if(/\.mesh(\?|$)/i.test(model)){
+      fetch(model).then(function(r){if(!r.ok)throw new Error("Model file not found ("+r.status+")");return r.arrayBuffer()})
+      .then(function(buf){say("Building model…");return new Promise(function(res){setTimeout(function(){res(buf)},30)})})
+      .then(function(buf){show(parseMesh(buf))})
+      .catch(function(e){say(e.message||"Could not load the model");btn.disabled=false;btn.textContent="Try again"});
+      return;
+    }
     fetch(model).then(function(r){if(!r.ok)throw new Error("Model file not found ("+r.status+")");return r.arrayBuffer()})
     .then(function(buf){say("Starting 3D engine…");return getOcct().then(function(oc){return [oc,buf]})})
     .then(function(a){
@@ -55,7 +69,7 @@ function mount(box,model){
     .catch(function(e){say(e.message||"Could not load the model");btn.disabled=false;btn.textContent="Try again"});
   }
   function show(r){
-    wrap.classList.add("live");box.querySelector(".pv-intro").style.display="none";
+    wrap.classList.add("live");wrap.style.background="";box.querySelector(".pv-intro").style.display="none";
     var canvas=document.createElement("canvas");wrap.insertBefore(canvas,wrap.firstChild);
     var R=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
     R.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
