@@ -83,7 +83,7 @@ ${gtm}<meta charset="utf-8">
     <a class="btn head-cta" href="${wa}" target="_blank" rel="noopener"><span class="xs-hide">Free demo</span><span class="xs-show">Demo</span></a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span></button>
     <nav aria-label="Main" id="mainNav">
-      <a href="/#courses">Courses</a><a href="/#batches">Batches</a><a href="/#process">Process</a><a href="/#lab">Lab</a><a href="/#colleges">Colleges</a><a href="/#founder">Founder</a><a href="/#faq">FAQ</a>
+      <a href="/#courses">Courses</a><a href="/#flash">Daily cards</a><a href="/#batches">Batches</a><a href="/#process">Process</a><a href="/#lab">Lab</a><a href="/#colleges">Colleges</a><a href="/#founder">Founder</a><a href="/#faq">FAQ</a>
       <a href="https://lms.nishlabcreations.online">Student login</a>
       <a class="btn" href="${wa}" target="_blank" rel="noopener">Free demo</a>
     </nav>
@@ -159,4 +159,15 @@ ${trk}
   fs.mkdirSync(`courses/${sl}`,{recursive:true});fs.writeFileSync(`courses/${sl}/index.html`,html);
   console.log('wrote',sl,(html.length/1024).toFixed(0)+'KB');
 });
+
+/* ---- compact course cards on the home page (between the COURSES markers) ---- */
+{
+  let cards='  <div class="ccards">\n';
+  for(const c of C){
+    cards+=`    <a class="ccard" href="/courses/${slug(c.n)}/"><span class="ctop"><code>${esc(c.k)}</code><span class="mono">${esc(c.g)}</span></span><h3>${esc(c.n)}</h3><p>${esc(c.p)}</p><span class="cmeta"><span>${c.d} days · ${c.h} hrs · ${inr(c.f)}</span><span class="cgo">View course →</span></span></a>\n`;
+  }
+  cards+='  </div>\n';
+  const i1=s.indexOf('<!--COURSES-->')+'<!--COURSES-->'.length,i2=s.indexOf('<!--/COURSES-->');
+  fs.writeFileSync('index.html',s.slice(0,i1)+'\n'+cards+s.slice(i2));
+}
 fs.writeFileSync('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);

@@ -370,6 +370,40 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
 .batch .seats + .btn{margin-top:16px}
 @media (max-width:1000px){.batches{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.batches{grid-template-columns:1fr}}
+
+/* course cards + daily flashcards */
+.cgroup{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin:30px 0 12px}
+.cgroup:first-of-type{margin-top:0}
+.cgroup::before{content:"▾ "}
+.ccards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ccard{display:flex;flex-direction:column;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:20px;transition:border-color .15s,transform .15s}
+.ccard:hover{border-color:var(--hot);transform:translateY(-2px)}
+.ccard .ctop{display:flex;justify-content:space-between;align-items:center}.ccard code{font-family:var(--mono);font-size:.68rem;color:var(--hot);border:1px solid var(--hot);border-radius:4px;padding:1px 6px}
+.ccard h3{font-size:1.2rem}
+.ccard p{margin:0;color:var(--muted);font-size:.92rem}
+.ccard .cmeta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.76rem;color:var(--muted);padding-top:8px;border-top:1px dashed var(--line)}
+.ccard .cgo{color:var(--text)}
+@media (max-width:980px){.ccards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.ccards{grid-template-columns:1fr}}
+.fl{max-width:720px}
+.fl-top{display:flex;justify-content:space-between;margin-bottom:10px}
+.fl-card{display:block;width:100%;min-height:260px;text-align:left;font:inherit;color:var(--text);cursor:pointer;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,var(--panel-2),var(--panel));padding:28px;position:relative;transition:border-color .15s,background .2s}
+.fl-card:hover{border-color:var(--steel)}
+.fl-card.back{border-color:var(--hot);background:linear-gradient(160deg,rgba(255,106,26,.12),var(--panel))}
+.fl-face{display:flex;flex-direction:column;gap:16px;min-height:204px}
+.fl-text{font-family:var(--display);font-size:clamp(1.25rem,3.2vw,1.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.fl-card.back .fl-text{font-family:var(--body);font-weight:500;font-size:clamp(1.05rem,2.6vw,1.3rem);letter-spacing:0;line-height:1.5}
+.fl-hint{margin-top:auto;color:var(--muted)}
+.fl-link{min-height:28px;margin:12px 0 4px}
+.fl-link a{color:var(--hot);text-decoration:none;font-weight:600}
+.fl-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.fl-bar .btn{margin:0;padding:11px 20px}
+.fl-bar .btn:disabled{opacity:.4;cursor:default;transform:none}
+.fl-bar #fl-next{margin-left:auto}
+.fl-done{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:28px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.fl-done[hidden],.fl-bar[hidden],.fl-card[hidden]{display:none}
+.fl-done p{margin:0;font-family:var(--display);font-size:1.3rem}
+.fl-done .btn{margin:0}
 </style>
 </head>
 <body>
@@ -382,6 +416,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span></button>
     <nav aria-label="Main" id="mainNav">
       <a href="#courses">Courses</a>
+      <a href="#flash">Daily cards</a>
       <a href="#batches">Batches</a>
       <a href="#process">Process</a>
       <a href="#lab">Lab</a>
@@ -446,16 +481,38 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <div>
       <p class="mono">01 · Course tree</p>
       <h2>Pick a part to build.</h2>
-      <p>Every course is taught live and priced on its own. Select one to see what you'll learn, the day-by-day roadmap and the industry capstone.</p>
+      <p>Every course is taught live and priced on its own. Open a course page for the full syllabus, day-by-day roadmap, capstone and student projects.</p>
     </div>
   </div>
-  <div class="cad">
-    <div class="tree" id="tree" role="group" aria-label="Courses">
-      <span class="mono">Courses (10)</span>
-    </div>
-    <div class="props" id="props" aria-live="polite"></div>
+<!--COURSES-->
+  <div class="ccards">
+    <a class="ccard" href="/courses/autocad-professional/"><span class="ctop"><code>ACAD</code><span class="mono">Design</span></span><h3>AutoCAD Professional</h3><p>Industry-standard 2D drafting, documentation, layouts, plotting and introductory 3D modelling.</p><span class="cmeta"><span>12 days · 24 hrs · ₹6,000</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/solidworks-professional/"><span class="ctop"><code>SW</code><span class="mono">Design</span></span><h3>SolidWorks Professional</h3><p>Parametric modelling through advanced assemblies, sheet metal, weldments, surfacing and VBA automation.</p><span class="cmeta"><span>24 days · 48 hrs · ₹8,000</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/catia-v5-professional/"><span class="ctop"><code>CATIA</code><span class="mono">Design</span></span><h3>CATIA V5 Professional</h3><p>Sketcher, Part Design, Assembly Design, Drafting and Generative Shape Design.</p><span class="cmeta"><span>15 days · 30 hrs · ₹9,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/creo-parametric/"><span class="ctop"><code>CREO</code><span class="mono">Design</span></span><h3>Creo Parametric</h3><p>Parametric modelling for machined and sheet-metal parts, through to assemblies and drawings.</p><span class="cmeta"><span>24 days · 48 hrs · ₹9,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/fusion-360/"><span class="ctop"><code>F360</code><span class="mono">Design</span></span><h3>Fusion 360</h3><p>Model, assemble, draw and start on CAM in one cloud workflow.</p><span class="cmeta"><span>15 days · 30 hrs · ₹5,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/ansys-workbench-professional/"><span class="ctop"><code>ANSYS</code><span class="mono">Simulate</span></span><h3>ANSYS Workbench Professional</h3><p>FEA fundamentals, static structural, contact, modal, thermal, fatigue, CFD introduction and reporting.</p><span class="cmeta"><span>18 days · 36 hrs · ₹12,000</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/keyshot/"><span class="ctop"><code>KS</code><span class="mono">Present</span></span><h3>KeyShot</h3><p>Turn CAD models into renders that look like product photos.</p><span class="cmeta"><span>10 days · 20 hrs · ₹3,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/python-for-engineers/"><span class="ctop"><code>PY</code><span class="mono">Automate</span></span><h3>Python for Engineers</h3><p>Programming fundamentals for mechanical engineers, NumPy/Pandas analysis and CAD automation.</p><span class="cmeta"><span>12 days · 24 hrs · ₹3,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/advanced-excel-vba-for-engineers/"><span class="ctop"><code>XLS</code><span class="mono">Automate</span></span><h3>Advanced Excel + VBA for Engineers</h3><p>Advanced formulas, modern lookups, dashboards and VBA applied to engineering workflows.</p><span class="cmeta"><span>9 days · 18 hrs · ₹3,999</span><span class="cgo">View course →</span></span></a>
+    <a class="ccard" href="/courses/interview-resume-and-portfolio-preparation/"><span class="ctop"><code>JOB</code><span class="mono">Career</span></span><h3>Interview, Resume &amp; Portfolio Preparation</h3><p>Placement-readiness track covering resume, portfolio, LinkedIn and mock interviews.</p><span class="cmeta"><span>12 days · 24 hrs · Ask on demo</span><span class="cgo">View course →</span></span></a>
   </div>
+<!--/COURSES-->
   <p class="aside-note">Every course ends with an industry capstone. The Career track (Interview, Resume &amp; Portfolio Preparation) can be added to any course.</p>
+</div>
+</section>
+
+<section id="flash" aria-labelledby="flh">
+<div class="wrap">
+  <div class="head">
+    <div>
+      <p class="mono">Daily practice</p>
+      <h2 id="flh">5 skill cards. New every day.</h2>
+      <p>Quick questions from CAD, CAE, Python, Excel and interviews. Flip the card, check yourself, come back tomorrow.</p>
+    </div>
+    <span class="mono hot" id="fl-streak"></span>
+  </div>
+  <div class="fl" id="fl"><noscript><p>Turn on JavaScript to see today's skill cards.</p></noscript></div>
 </div>
 </section>
 
@@ -698,6 +755,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/flashcards.js" defer></script>
 <script>
 (function(){
 "use strict";
@@ -973,35 +1031,7 @@ var C=[
   cap:"Placement-ready professional profile: ATS resume, complete portfolio PDF covering the technical modules, live LinkedIn profile and scored mock interview evaluation."}
 ];
 var inr=function(v){return v?"₹"+v.toLocaleString("en-IN"):"Ask on demo"};
-var tree=$("tree"),props=$("props"),btns=[],group="";
-C.forEach(function(c,i){
-  if(c.g!==group){group=c.g;var f=document.createElement("div");f.className="folder";f.textContent=group;tree.appendChild(f)}
-  var b=document.createElement("button");b.type="button";b.className="node";b.id="node-"+c.k.toLowerCase();
-  b.innerHTML="<code>"+c.k+"</code><span>"+c.n.replace(" Professional","").replace(" for Engineers","").replace("Interview, Resume & Portfolio Preparation","Interview & Resume Prep")+"</span><span class='fee-s'>"+(c.f?inr(c.f):"")+"</span>";
-  b.onclick=function(){select(i,true)};tree.appendChild(b);btns.push(b);
-});
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
-function slug(n){return n.toLowerCase().replace(/&/g,"and").replace(/\+/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
-function select(i,user){
-  var c=C[i];
-  btns.forEach(function(b,j){b.setAttribute("aria-pressed",String(i===j))});
-  var road=c.days?c.days.map(function(t,k){return "<li><span>Day "+String(k+1).padStart(2,"0")+"</span>"+esc(t)+"</li>"}).join("")
-                 :c.ranges.map(function(r){return "<li><span>Day "+r[0]+"</span>"+esc(r[1])+"</li>"}).join("");
-  props.innerHTML=
-   "<div class='p-main'><p class='mono'>"+c.g+" · "+c.k+"</p><h3>"+esc(c.n)+"</h3><p>"+esc(c.p)+"</p>"+
-   "<h4 class='p-h'>What you'll learn</h4><ul class='learn'>"+c.learn.map(function(t){return "<li>"+esc(t)+"</li>"}).join("")+"</ul>"+
-   "<div class='p-two'><div><h4 class='p-h'>Software & tools</h4><p>"+esc(c.tools)+"</p></div><div><h4 class='p-h'>Best suited for</h4><p>"+esc(c.who)+"</p></div></div>"+
-   "<details class='road'"+(window.innerWidth>900?" open":"")+"><summary><span>"+c.d+"-day roadmap</span><small>2 hrs a day</small></summary><ol>"+road+"</ol></details>"+
-   "<div class='project'><span class='mono hot'>Industry capstone</span><br>"+esc(c.cap)+"</div></div>"+
-   "<div class='p-side'><dl class='ptable'><div class='big'><dt class='mono'>Course fee</dt><dd>"+inr(c.f)+"</dd></div>"+
-   "<div><dt>Live hours</dt><dd>"+c.h+" hrs</dd></div><div><dt>Days</dt><dd>"+c.d+"</dd></div>"+
-   "<div><dt>Class length</dt><dd>2 hrs / day</dd></div><div><dt>Format</dt><dd>Live online</dd></div></dl>"+
-   "<a class='btn' href='#demo' id='pick'>Book a demo for this →</a>"+
-   "<a class='btn line' href='/courses/"+slug(c.n)+"/'>View course page &amp; projects →</a></div>";
-  $("pick").onclick=function(){$("fc").value=c.n;wa()};
-  if(user&&window.innerWidth<=900){var t=props.getBoundingClientRect().top+window.scrollY-130;window.scrollTo({top:t,behavior:reduce?"auto":"smooth"})}
-}
-select(1);
+
 
 /* ---------- toolpath ---------- */
 var tp=$("tp"),tool=$("tp-tool"),L=tp.getTotalLength(),nodes=[].slice.call(document.querySelectorAll("#tp-nodes circle")),stEl=document.querySelector(".stations"),stItems=[].slice.call(document.querySelectorAll(".station"));
@@ -1164,8 +1194,8 @@ onScroll();drawPath();
       send('phone_click',{section:sec}); send('generate_lead',{lead_type:'call',section:sec,method:'phone'});
     } else if(href==='#demo'){
       send('demo_cta_click',{section:sec,link_text:text});
-    } else if(a.tagName==='BUTTON'&&a.classList.contains('node')){
-      var cs=a.querySelector('span');send('course_view',{course:cs?cs.textContent.trim():text});
+    } else if(/^\/courses\//.test(href)){
+      var ch=a.querySelector('h3');send('course_view',{course:ch?ch.textContent.trim():text});
     } else if(/google\.com\/maps/i.test(href)){
       send('reviews_click',{section:sec});
     }

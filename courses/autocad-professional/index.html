@@ -362,6 +362,40 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
 @media (max-width:1000px){.batches{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.batches{grid-template-columns:1fr}}
 
+/* course cards + daily flashcards */
+.cgroup{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin:30px 0 12px}
+.cgroup:first-of-type{margin-top:0}
+.cgroup::before{content:"▾ "}
+.ccards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ccard{display:flex;flex-direction:column;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:20px;transition:border-color .15s,transform .15s}
+.ccard:hover{border-color:var(--hot);transform:translateY(-2px)}
+.ccard .ctop{display:flex;justify-content:space-between;align-items:center}.ccard code{font-family:var(--mono);font-size:.68rem;color:var(--hot);border:1px solid var(--hot);border-radius:4px;padding:1px 6px}
+.ccard h3{font-size:1.2rem}
+.ccard p{margin:0;color:var(--muted);font-size:.92rem}
+.ccard .cmeta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.76rem;color:var(--muted);padding-top:8px;border-top:1px dashed var(--line)}
+.ccard .cgo{color:var(--text)}
+@media (max-width:980px){.ccards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.ccards{grid-template-columns:1fr}}
+.fl{max-width:720px}
+.fl-top{display:flex;justify-content:space-between;margin-bottom:10px}
+.fl-card{display:block;width:100%;min-height:260px;text-align:left;font:inherit;color:var(--text);cursor:pointer;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,var(--panel-2),var(--panel));padding:28px;position:relative;transition:border-color .15s,background .2s}
+.fl-card:hover{border-color:var(--steel)}
+.fl-card.back{border-color:var(--hot);background:linear-gradient(160deg,rgba(255,106,26,.12),var(--panel))}
+.fl-face{display:flex;flex-direction:column;gap:16px;min-height:204px}
+.fl-text{font-family:var(--display);font-size:clamp(1.25rem,3.2vw,1.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.fl-card.back .fl-text{font-family:var(--body);font-weight:500;font-size:clamp(1.05rem,2.6vw,1.3rem);letter-spacing:0;line-height:1.5}
+.fl-hint{margin-top:auto;color:var(--muted)}
+.fl-link{min-height:28px;margin:12px 0 4px}
+.fl-link a{color:var(--hot);text-decoration:none;font-weight:600}
+.fl-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.fl-bar .btn{margin:0;padding:11px 20px}
+.fl-bar .btn:disabled{opacity:.4;cursor:default;transform:none}
+.fl-bar #fl-next{margin-left:auto}
+.fl-done{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:28px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.fl-done[hidden],.fl-bar[hidden],.fl-card[hidden]{display:none}
+.fl-done p{margin:0;font-family:var(--display);font-size:1.3rem}
+.fl-done .btn{margin:0}
+
 .crumb{margin:28px 0 22px}.crumb a{color:var(--steel);text-decoration:none}.crumb a:hover{color:var(--text)}
 .cad.one{grid-template-columns:1fr}
 .cp-hero{padding:8px 0 28px}
@@ -406,7 +440,7 @@ footer{margin-top:96px;border-top:1px solid var(--line);padding:32px 0 40px}
     <a class="btn head-cta" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20AutoCAD%20Professional%20course." target="_blank" rel="noopener"><span class="xs-hide">Free demo</span><span class="xs-show">Demo</span></a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span></button>
     <nav aria-label="Main" id="mainNav">
-      <a href="/#courses">Courses</a><a href="/#batches">Batches</a><a href="/#process">Process</a><a href="/#lab">Lab</a><a href="/#colleges">Colleges</a><a href="/#founder">Founder</a><a href="/#faq">FAQ</a>
+      <a href="/#courses">Courses</a><a href="/#flash">Daily cards</a><a href="/#batches">Batches</a><a href="/#process">Process</a><a href="/#lab">Lab</a><a href="/#colleges">Colleges</a><a href="/#founder">Founder</a><a href="/#faq">FAQ</a>
       <a href="https://lms.nishlabcreations.online">Student login</a>
       <a class="btn" href="https://wa.me/918424099617?text=Hi%20NISHLAB%2C%20I%20want%20to%20book%20a%20free%20demo%20for%20the%20AutoCAD%20Professional%20course." target="_blank" rel="noopener">Free demo</a>
     </nav>
@@ -495,8 +529,8 @@ if(!list.length){for(var i=1;i<=3;i++)grid.appendChild(el("<article class='pcard
       send('phone_click',{section:sec}); send('generate_lead',{lead_type:'call',section:sec,method:'phone'});
     } else if(href==='#demo'){
       send('demo_cta_click',{section:sec,link_text:text});
-    } else if(a.tagName==='BUTTON'&&a.classList.contains('node')){
-      var cs=a.querySelector('span');send('course_view',{course:cs?cs.textContent.trim():text});
+    } else if(/^\/courses\//.test(href)){
+      var ch=a.querySelector('h3');send('course_view',{course:ch?ch.textContent.trim():text});
     } else if(/google\.com\/maps/i.test(href)){
       send('reviews_click',{section:sec});
     }
