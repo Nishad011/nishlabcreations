@@ -981,6 +981,7 @@ C.forEach(function(c,i){
   b.onclick=function(){select(i,true)};tree.appendChild(b);btns.push(b);
 });
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function slug(n){return n.toLowerCase().replace(/&/g,"and").replace(/\+/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
 function select(i,user){
   var c=C[i];
   btns.forEach(function(b,j){b.setAttribute("aria-pressed",String(i===j))});
@@ -995,7 +996,8 @@ function select(i,user){
    "<div class='p-side'><dl class='ptable'><div class='big'><dt class='mono'>Course fee</dt><dd>"+inr(c.f)+"</dd></div>"+
    "<div><dt>Live hours</dt><dd>"+c.h+" hrs</dd></div><div><dt>Days</dt><dd>"+c.d+"</dd></div>"+
    "<div><dt>Class length</dt><dd>2 hrs / day</dd></div><div><dt>Format</dt><dd>Live online</dd></div></dl>"+
-   "<a class='btn' href='#demo' id='pick'>Book a demo for this →</a></div>";
+   "<a class='btn' href='#demo' id='pick'>Book a demo for this →</a>"+
+   "<a class='btn line' href='/courses/"+slug(c.n)+"/'>View course page &amp; projects →</a></div>";
   $("pick").onclick=function(){$("fc").value=c.n;wa()};
   if(user&&window.innerWidth<=900){var t=props.getBoundingClientRect().top+window.scrollY-130;window.scrollTo({top:t,behavior:reduce?"auto":"smooth"})}
 }
